@@ -1,26 +1,11 @@
-# Binary Sparse Format Specification
-This is part of a new effort to create a binary storage format for storing sparse matrices and other sparse data to disk.
+# Binsparse: A Binary Sparse Matrix and Tensor Format Specification
+Binsparse is binary storage format for storing sparse matrices and tensors to disk.
 
 Minutes from our meetings are available [here](https://hackmd.io/0qzK4fJlQp-78t067yiYsA?view) (see also: [previous minutes](minutes)).
 
-
-
 ## Specification
 
-[View Latest Spec](https://graphblas.org/binsparse-specification/)
-
-## Parsers
-
-Here is a table listing the current tensor frameworks that support the format:
-
-| Language | Framework | Status | Notes |
-| -------- | ------ | ------ | ----- |
-| C | [binsparse-reference-c](https://github.com/GraphBLAS/binsparse-reference-c) | under development | converts between binsparse and in-memory sparse matrices |
-| C++ | [binsparse-reference-impl](https://github.com/GraphBLAS/binsparse-reference-impl) | under development | converts between binsparse and in-memory sparse matrices | 
-| Julia | [Finch.jl](https://finch-tensor.github.io/Finch.jl/stable/docs/fileio/) | complete | converts between binsparse and in-memory sparse matrices or tensors |
-| Python | [binsparse-python](https://github.com/ivirshup/binsparse-python) | under development | converts between binsparse and scipy.sparse matrices |
-| Python | [finch-tensor-python](https://github.com/finch-tensor/finch-tensor-python) | complete | converts between binsparse and in-memory sparse matrices or tensors |
-| C++ | TACO, [binsparse-taco-parser](https://github.com/tensor-compiler/taco-binsparse-parser) | complete | converts between binsparse and in-memory sparse matrices or tensors |
+[View Latest Spec](https://binsparse.github.io/binsparse-specification/)
 
 ### Editing
 
