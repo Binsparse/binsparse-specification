@@ -3,8 +3,7 @@ Title: Binary Sparse Format Specification
 Text Macro: SPECVERSION 0.1.0
 Shortname: binsparse
 Level: 1
-Status: LS-COMMIT
-Status: w3c/UD
+Status: LD
 URL: https://graphblas.org/binsparse-specification/
 Repository: https://github.com/GraphBLAS/binsparse-specification
 Editor: Benjamin Brock, Intel

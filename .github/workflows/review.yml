@@ -22,5 +22,5 @@ jobs:
           issue-number: ${{ github.event.pull_request.number }}
           body: |
             #### Automated Review URLs
-            * [render draft/index.bs](https://api.csswg.org/bikeshed/?url=https://raw.githubusercontent.com/${{ github.event.pull_request.head.repo.full_name }}/${{ github.event.pull_request.head.sha }}/spec/draft/index.bs)
+            * [render draft/index.bs](https://api.csswg.org/bikeshed/?url=https://raw.githubusercontent.com/${{ github.event.pull_request.head.repo.full_name }}/${{ github.event.pull_request.head.sha }}/spec/draft/index.bs&md-status=LS-PR)
           edit-mode: replace

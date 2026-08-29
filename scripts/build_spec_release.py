@@ -49,6 +49,7 @@ def build(source: Path, output: Path) -> None:
         "bikeshed",
         "--no-update",
         "spec",
+        "--md-status=LS-COMMIT",
         f"--md-ED={base_url}/versions/{version}/",
         str(source_artifact),
         str(html_artifact),
