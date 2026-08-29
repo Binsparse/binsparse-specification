@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ page.title | default: site.title }}</title>
+    <style>
+      body {
+        color: #222;
+        font-family: system-ui, sans-serif;
+        line-height: 1.5;
+        margin: 3rem auto;
+        max-width: 48rem;
+        padding: 0 1.25rem;
+      }
+      a { color: #0645ad; }
+      li { margin: 0.5rem 0; }
+    </style>
+  </head>
+  <body>
+    <main>{{ content }}</main>
+  </body>
+</html>

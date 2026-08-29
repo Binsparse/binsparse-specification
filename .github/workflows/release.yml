@@ -4,6 +4,7 @@ on:
   workflow_dispatch:
 
 permissions:
+  actions: write
   contents: write
 
 jobs:
@@ -68,3 +69,8 @@ jobs:
             --title "Binsparse Specification $RELEASE_VERSION" \
             --generate-notes \
             "${release_flags[@]}"
+
+      - name: Refresh specification website
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run publish.yml --ref main

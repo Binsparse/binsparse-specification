@@ -12,16 +12,6 @@ from semantic_version import Version
 from build_spec_release import read_spec_version
 
 
-def semver_precedence(version: Version) -> Version:
-    """Return a comparable version without non-precedence build metadata."""
-    return Version(
-        major=version.major,
-        minor=version.minor,
-        patch=version.patch,
-        prerelease=version.prerelease,
-    )
-
-
 def existing_tags() -> list[str]:
     result = subprocess.run(
         ["git", "tag", "--list"],
@@ -51,10 +41,8 @@ def check_release_version(source: Path, tags: list[str]) -> str:
     if not existing:
         return str(requested)
 
-    highest, highest_tag = max(
-        existing, key=lambda item: semver_precedence(item[0])
-    )
-    if semver_precedence(requested) <= semver_precedence(highest):
+    highest, highest_tag = max(existing, key=lambda item: item[0])
+    if not requested > highest:
         raise ValueError(
             f"release {requested_tag} must be greater than the current highest "
             f"release {highest_tag}"
