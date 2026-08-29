@@ -1,0 +1,70 @@
+name: Release
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-release.txt
+
+      - name: Install build tools
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install --requirement requirements-release.txt
+
+      - name: Validate release version
+        run: |
+          version="$(python scripts/check_release_version.py spec/draft/index.bs)"
+          echo "RELEASE_VERSION=$version" >> "$GITHUB_ENV"
+
+      - name: Build release artifacts
+        env:
+          SITE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}
+        run: python scripts/build_spec_release.py spec/draft/index.bs --output release
+
+      - name: Publish tag
+        run: |
+          tag="v$RELEASE_VERSION"
+          existing_commit="$(git rev-list --max-count=1 "$tag" 2>/dev/null || true)"
+          if [[ -n "$existing_commit" ]]; then
+            echo "Tag $tag already exists at $existing_commit" >&2
+            exit 1
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag --annotate "$tag" --message "Binsparse Specification $RELEASE_VERSION"
+          git push origin "refs/tags/$tag"
+
+      - name: Record release artifacts
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tag="v$RELEASE_VERSION"
+          artifacts=(release/binsparse-specification-"$RELEASE_VERSION".*)
+          if gh release view "$tag" >/dev/null 2>&1; then
+            echo "GitHub Release $tag already exists" >&2
+            exit 1
+          fi
+          release_flags=()
+          if [[ "$RELEASE_VERSION" == *-* ]]; then
+            release_flags+=(--prerelease)
+          fi
+          gh release create "$tag" "${artifacts[@]}" \
+            --title "Binsparse Specification $RELEASE_VERSION" \
+            --generate-notes \
+            "${release_flags[@]}"
