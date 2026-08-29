@@ -16,6 +16,14 @@ Abstract: A cross-platform binary storage format for sparse data, particularly s
 Markup Shorthands: css no, markdown yes
 </pre>
 
+<style>
+html:root {
+  --tocsidebar-bg: #F4D7B8;
+  --tocsidebar-heading-text: #CC6C02;
+  --heading-text: #CC6C02;
+}
+</style>
+
 <p><strong>Specification version:</strong> [SPECVERSION]</p>
 
 Introduction {#intro}
