@@ -19,9 +19,8 @@ Markup Shorthands: css no, markdown yes
 
 <style>
 html:root {
-  --tocsidebar-bg: #F4D7B8;
+  --tocsidebar-bg: #ffe4c7;
   --tocsidebar-heading-text: #CC6C02;
-  --heading-text: #CC6C02;
 }
 </style>
 
