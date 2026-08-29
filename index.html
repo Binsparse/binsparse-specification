@@ -2,7 +2,7 @@
  <head>
   <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
-  <title>Binary Sparse Format Specification Version 0.1</title>
+  <title>Binary Sparse Format Specification Version 0.1.0</title>
   <meta content="w3c/UD" name="w3c-status">
   <link href="https://www.w3.org/StyleSheets/TR/2021/W3C-UD" rel="stylesheet">
   <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
@@ -534,8 +534,8 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
  <body class="h-entry">
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
-   <h1 class="p-name no-ref" id="title">Binary Sparse Format Specification Version 0.1</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#UD">Unofficial Proposal Draft</a>, <time class="dt-updated" datetime="2026-08-27">27 August 2026</time></p>
+   <h1 class="p-name no-ref" id="title">Binary Sparse Format Specification Version 0.1.0</h1>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#UD">Unofficial Proposal Draft</a>, <time class="dt-updated" datetime="2026-08-29">29 August 2026</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -688,14 +688,14 @@ data.  The key-value data is namespaced as "binsparse" to avoid any conflict wit
 metadata in the container. The required entries in the "binsparse" entry are listed
 below. Optional attributes may be defined to hold additional metadata and must be stored
 outside of the "binsparse" namespace.</p>
-   <div class="example" id="example-2bb9fcf1">
-    <a class="self-link" href="#example-2bb9fcf1"></a> 
+   <div class="example" id="example-25a39087">
+    <a class="self-link" href="#example-25a39087"></a> 
     <p>Example of a JSON descriptor for a compressed-sparse column (CSC) matrix with 10
 rows and 12 columns, containing 20 float32 values, along with user-defined
 attributes.</p>
 <pre class="language-json highlight"><c- p>{</c->
   <c- f>"binsparse"</c-><c- p>:</c-> <c- p>{</c->
-    <c- f>"version"</c-><c- p>:</c-> <c- u>"0.1"</c-><c- p>,</c->
+    <c- f>"version"</c-><c- p>:</c-> <c- u>"0.1.0"</c-><c- p>,</c->
     <c- f>"format"</c-><c- p>:</c-> <c- u>"CSC"</c-><c- p>,</c->
     <c- f>"shape"</c-><c- p>:</c-> <c- p>[</c-><c- mi>10</c-><c- p>,</c-> <c- mi>12</c-><c- p>],</c->
     <c- f>"number_of_stored_values"</c-><c- p>:</c-> <c- mi>20</c-><c- p>,</c->
@@ -712,9 +712,13 @@ attributes.</p>
    </div>
    <h3 class="heading settled" data-level="3.1" id="key_version"><span class="secno">3.1. </span><span class="content">Version</span><a class="self-link" href="#key_version"></a></h3>
    <p>Version indicates the version of the Binsparse specification used here.
-This is a two digit specifier of the form <code>major.minor</code>.
-Any minor updates should be backwards compatible with the previous version, e.g. must be a superset of the previous versions within the major release series.
-Major versions may break backwards compatibility.</p>
+It MUST be a valid <a href="https://semver.org/spec/v2.0.0.html">Semantic Versioning 2.0.0</a> version of the form <code>major.minor.patch</code>, optionally followed by a pre-release
+identifier or build metadata.</p>
+   <p>Given a version number <code>major.minor.patch</code>, the major version MUST be incremented
+for incompatible changes, the minor version MUST be incremented for backwards-compatible
+additions, and the patch version MUST be incremented for backwards-compatible fixes (usually changes in wording that serve to clarify but not change the format).
+Major version zero (<code>0.y.z</code>) is for initial development and does not provide a
+backwards-compatibility guarantee.</p>
    <h3 class="heading settled" data-level="3.2" id="key_shape"><span class="secno">3.2. </span><span class="content">Shape</span><a class="self-link" href="#key_shape"></a></h3>
    <p>The <code>shape</code> key must be present and shall define the shape of the sparse tensor.
 It shall contain a JSON array of integers, with index <code>i</code> containing the size of
@@ -1164,8 +1168,8 @@ The <code>complex</code> value modifier may only be used with the types <code>fl
 written as <code>iso[&lt;type>]</code>. This indicates that the array will store only a single
 element which is common to all stored indices. All elements in the modified
 array shall be stored at position 0 of the underlying array.</p>
-   <div class="example" id="example-4ccc8d70">
-    <a class="self-link" href="#example-4ccc8d70"></a> 
+   <div class="example" id="example-5e46468d">
+    <a class="self-link" href="#example-5e46468d"></a> 
     <p>Example of a CSR Matrix whose values are all 7.</p>
     <table>
      <thead>
@@ -1214,7 +1218,7 @@ array shall be stored at position 0 of the underlying array.</p>
        <td>.
     </table>
 <pre class="language-json highlight"><c- p>{</c->
-  <c- f>"version"</c-><c- p>:</c-> <c- u>"0.1"</c-><c- p>,</c->
+  <c- f>"version"</c-><c- p>:</c-> <c- u>"0.1.0"</c-><c- p>,</c->
   <c- f>"format"</c-><c- p>:</c-> <c- u>"CSR"</c-><c- p>,</c->
   <c- f>"shape"</c-><c- p>:</c-> <c- p>[</c-><c- mi>5</c-><c- p>,</c-> <c- mi>5</c-><c- p>],</c->
   <c- f>"number_of_stored_values"</c-><c- p>:</c-> <c- mi>6</c-><c- p>,</c->
@@ -1276,8 +1280,8 @@ presence of an entry at row and column index <code>j,i</code> with value <code>-
 with only the upper triangle stored.  For all matrix entries with row and column
 indices <code>i,j</code> and value <code>v</code>, <code>i &lt;= j</code>.  If <code>i != j</code>, the entry implies the
 presence of an entry at row and column index <code>j,i</code> with value <code>-v</code>.</p>
-   <div class="example" id="example-66bd6788">
-    <a class="self-link" href="#example-66bd6788"></a> 
+   <div class="example" id="example-7956a4bc">
+    <a class="self-link" href="#example-7956a4bc"></a> 
     <p>Example of a symmetric CSR matrix.</p>
     <table>
      <thead>
@@ -1326,7 +1330,7 @@ presence of an entry at row and column index <code>j,i</code> with value <code>-
        <td>7
     </table>
 <pre class="language-json highlight"><c- p>{</c->
-  <c- f>"version"</c-><c- p>:</c-> <c- u>"0.1"</c-><c- p>,</c->
+  <c- f>"version"</c-><c- p>:</c-> <c- u>"0.1.0"</c-><c- p>,</c->
   <c- f>"format"</c-><c- p>:</c-> <c- u>"CSR"</c-><c- p>,</c->
   <c- f>"shape"</c-><c- p>:</c-> <c- p>[</c-><c- mi>5</c-><c- p>,</c-> <c- mi>5</c-><c- p>],</c->
   <c- f>"number_of_stored_values"</c-><c- p>:</c-> <c- mi>9</c-><c- p>,</c->
