@@ -1,0 +1,16 @@
+@page {
+  size: A4;
+  margin: 18mm 16mm 20mm;
+}
+
+html {
+  font-size: 9.5pt !important;
+}
+
+body {
+  font-size: 9.5pt !important;
+  line-height: 1.35 !important;
+  margin: 0 !important;
+  max-width: none !important;
+  padding: 7mm 8mm 10mm !important;
+}

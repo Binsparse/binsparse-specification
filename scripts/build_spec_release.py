@@ -54,7 +54,14 @@ def build(source: Path, output: Path) -> None:
         str(source_artifact),
         str(html_artifact),
     )
-    run("weasyprint", str(html_artifact), str(pdf_artifact))
+    stylesheet = Path(__file__).resolve().parent.parent / "styles" / "spec-pdf.css"
+    run(
+        "weasyprint",
+        "--stylesheet",
+        str(stylesheet),
+        str(html_artifact),
+        str(pdf_artifact),
+    )
 
 
 def main() -> None:
