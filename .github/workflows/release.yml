@@ -1,4 +1,4 @@
-name: Release
+name: Release specification
 
 on:
   workflow_dispatch:
@@ -8,7 +8,8 @@ permissions:
   contents: write
 
 jobs:
-  release:
+  release_specification:
+    name: Release specification
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
 

@@ -11,7 +11,8 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  build:
+  build_website:
+    name: Build specification website
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -56,12 +57,13 @@ jobs:
         with:
           path: ./_site
 
-  deploy:
+  deploy_website:
+    name: Deploy specification website
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    needs: build
+    needs: build_website
     permissions:
       pages: write
       id-token: write
