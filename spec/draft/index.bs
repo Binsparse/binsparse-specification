@@ -4,6 +4,7 @@ Text Macro: SPECVERSION 0.1.0
 Shortname: binsparse
 Level: 1
 Status: LD
+Logo: logo.png
 URL: https://graphblas.org/binsparse-specification/
 Repository: https://github.com/GraphBLAS/binsparse-specification
 Editor: Benjamin Brock, Intel
@@ -23,6 +24,12 @@ html:root {
   --heading-text: #CC6C02;
 }
 </style>
+
+<p class="logo" boilerplate="logo">
+  <a href="https://binsparse.github.io/">
+    <img src="[LOGO]" alt="Binsparse" width="180" height="94">
+  </a>
+</p>
 
 <p><strong>Specification version:</strong> [SPECVERSION]</p>
 

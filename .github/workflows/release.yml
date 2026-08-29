@@ -56,7 +56,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           tag="v$RELEASE_VERSION"
-          artifacts=(release/binsparse-specification-"$RELEASE_VERSION".*)
+          artifacts=(release/binsparse-specification-"$RELEASE_VERSION".* release/logo.png)
           if gh release view "$tag" >/dev/null 2>&1; then
             echo "GitHub Release $tag already exists" >&2
             exit 1
