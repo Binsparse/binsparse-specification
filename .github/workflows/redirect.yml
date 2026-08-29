@@ -1,0 +1,38 @@
+name: Publish website redirect
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: specification-pages
+  cancel-in-progress: false
+
+jobs:
+  publish_redirect:
+    name: Publish website redirect
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload redirect
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: redirect
+
+      - name: Deploy redirect
+        id: deployment
+        uses: actions/deploy-pages@v4
