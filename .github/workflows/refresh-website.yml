@@ -1,0 +1,20 @@
+name: Refresh website
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  refresh_website:
+    name: Refresh website
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Dispatch website publishing workflow
+        env:
+          GH_TOKEN: ${{ secrets.WEBSITE_DISPATCH_TOKEN }}
+        run: |
+          gh api --method POST \
+            repos/Binsparse/binsparse.github.io/dispatches \
+            --field event_type=specification-updated

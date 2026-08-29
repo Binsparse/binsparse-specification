@@ -4,7 +4,6 @@ on:
   workflow_dispatch:
 
 permissions:
-  actions: write
   contents: write
 
 jobs:
@@ -36,7 +35,7 @@ jobs:
 
       - name: Build release artifacts
         env:
-          SITE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}
+          SITE_URL: https://${{ github.repository_owner }}.github.io
         run: python scripts/build_spec_release.py spec/draft/index.bs --output release
 
       - name: Publish tag
@@ -73,5 +72,8 @@ jobs:
 
       - name: Refresh specification website
         env:
-          GH_TOKEN: ${{ github.token }}
-        run: gh workflow run publish.yml --ref main
+          GH_TOKEN: ${{ secrets.WEBSITE_DISPATCH_TOKEN }}
+        run: |
+          gh api --method POST \
+            repos/Binsparse/binsparse.github.io/dispatches \
+            --field event_type=specification-updated

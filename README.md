@@ -5,11 +5,11 @@ Minutes from our meetings are available [here](https://hackmd.io/0qzK4fJlQp-78t0
 
 ## Specification
 
-[View Latest Stable Spec](https://binsparse.github.io/binsparse-specification/)
+[View Latest Stable Spec](https://binsparse.github.io/)
 
-[View Draft Spec](https://binsparse.github.io/binsparse-specification/versions/draft/)
+[View Draft Spec](https://binsparse.github.io/versions/draft/)
 
-[View All Versions](https://binsparse.github.io/binsparse-specification/versions/)
+[View All Versions](https://binsparse.github.io/versions/)
 
 ### Editing
 
@@ -42,7 +42,7 @@ HTML, and PDF artifacts.
 The specification's current version is defined once by the `SPECVERSION` Bikeshed
 text macro at the top of `spec/draft/index.bs`. Release versions must match it.
 
-The Jekyll website workflow renders the current draft and publishes immutable
-artifacts from GitHub Releases under `/versions/`. The site root redirects to the
-highest stable SemVer release, or to the draft before the first stable release
-exists. The repository's Pages source must be configured as **GitHub Actions**.
+The Jekyll website renders the current draft and publishes immutable artifacts
+from GitHub Releases under `/versions/`. It links to the highest stable SemVer
+release, or to the draft before the first stable release exists. The website is
+maintained in the `Binsparse/binsparse.github.io` repository.
