@@ -40,7 +40,7 @@ def build(source: Path, output: Path) -> None:
     source_artifact = output / f"{artifact_name}.bs"
     html_artifact = output / f"{artifact_name}.html"
     pdf_artifact = output / f"{artifact_name}.pdf"
-    logo = source.parent / "logo.png"
+    logo = source.parent / "logo.svg"
     if not logo.is_file():
         raise FileNotFoundError(f"Specification logo not found: {logo}")
     shutil.copy2(source, source_artifact)
