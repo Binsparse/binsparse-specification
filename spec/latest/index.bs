@@ -1,5 +1,5 @@
 <pre class='metadata'>
-Title: Binary Sparse Format Specification Version 0.1
+Title: Binary Sparse Format Specification Version 0.1.0
 Shortname: binsparse
 Level: 1
 Status: LS-COMMIT
@@ -61,7 +61,7 @@ attributes.
 ```json
 {
   "binsparse": {
-    "version": "0.1",
+    "version": "0.1.0",
     "format": "CSC",
     "shape": [10, 12],
     "number_of_stored_values": 20,
@@ -82,9 +82,15 @@ Version {#key_version}
 ----------------------
 
 Version indicates the version of the Binsparse specification used here.
-This is a two digit specifier of the form `major.minor`.
-Any minor updates should be backwards compatible with the previous version, e.g. must be a superset of the previous versions within the major release series.
-Major versions may break backwards compatibility.
+It MUST be a valid [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html)
+version of the form `major.minor.patch`, optionally followed by a pre-release
+identifier or build metadata.
+
+Given a version number `major.minor.patch`, the major version MUST be incremented
+for incompatible changes, the minor version MUST be incremented for backwards-compatible
+additions, and the patch version MUST be incremented for backwards-compatible fixes (usually changes in wording that serve to clarify but not change the format).
+Major version zero (`0.y.z`) is for initial development and does not provide a
+backwards-compatibility guarantee.
 
 Shape {#key_shape}
 ------------------
@@ -682,7 +688,7 @@ Example of a CSR Matrix whose values are all 7.
 
 ```json
 {
-  "version": "0.1",
+  "version": "0.1.0",
   "format": "CSR",
   "shape": [5, 5],
   "number_of_stored_values": 6,
@@ -820,7 +826,7 @@ Example of a symmetric CSR matrix.
 
 ```json
 {
-  "version": "0.1",
+  "version": "0.1.0",
   "format": "CSR",
   "shape": [5, 5],
   "number_of_stored_values": 9,
@@ -855,4 +861,3 @@ Supported Binary Containers {#supported_containers}
 ---------------------------------------------------
 
 Currently supported binary containers include HDF5 and NetCDF (but should include more).
-
