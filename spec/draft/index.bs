@@ -5,7 +5,7 @@ Shortname: binsparse
 Level: 1
 Status: LD
 Logo: logo.svg
-URL: https://graphblas.org/binsparse-specification/
+URL: https://binsparse.org/versions/draft/
 Repository: https://github.com/GraphBLAS/binsparse-specification
 Editor: Benjamin Brock, Intel
 Editor: Tim Davis, Texas A&M
@@ -25,7 +25,7 @@ html:root {
 </style>
 
 <p class="logo" boilerplate="logo">
-  <a href="https://binsparse.github.io/">
+  <a href="https://binsparse.org/">
     <img src="[LOGO]" alt="Binsparse" width="180" height="93">
   </a>
 </p>

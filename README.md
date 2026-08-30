@@ -5,11 +5,11 @@ Minutes from our meetings are available [here](https://hackmd.io/0qzK4fJlQp-78t0
 
 ## Specification
 
-[View Latest Stable Spec](https://binsparse.github.io/)
+[View Latest Stable Spec](https://binsparse.org/)
 
-[View Draft Spec](https://binsparse.github.io/versions/draft/)
+[View Draft Spec](https://binsparse.org/versions/draft/)
 
-[View All Versions](https://binsparse.github.io/versions/)
+[View All Versions](https://binsparse.org/versions/)
 
 ### Editing
 

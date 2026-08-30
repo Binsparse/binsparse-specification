@@ -47,7 +47,7 @@ def build(source: Path, output: Path) -> None:
     shutil.copy2(logo, output / logo.name)
 
     base_url = os.environ.get(
-        "SITE_URL", "https://binsparse.github.io/binsparse-specification"
+        "SITE_URL", "https://binsparse.org"
     ).rstrip("/")
     run(
         "bikeshed",
