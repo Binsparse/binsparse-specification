@@ -1,0 +1,143 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/Binsparse/binsparse-specification/<commit>/spec/draft/schema.json",
+  "title": "binsparse",
+  "description": "Validation of binsparse JSON descriptors (pre-defined formats only)",
+  "type": "object",
+  "properties": {
+    "binsparse": {
+      "description": "Top-level key to avoid any conflict with other metadata in the container.",
+      "type": "object",
+      "properties": {
+        "version": {
+          "description": "The semver version identifier corresponding to the spec",
+          "type": "string",
+          "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+        },
+        "shape": {
+          "type": "array",
+          "items": { "type": "integer", "minimum": 0 }
+        },
+        "number_of_stored_values": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "format": {
+          "enum": ["DVEC", "DMATR", "DMATC", "DMAT", "CVEC", "CSR", "CSC", "DCSR", "DCSC", "COOR", "COOC", "COO"]
+        },
+        "data_types": {
+          "type": "object"
+        },
+        "fill": {
+          "type": "boolean"
+        },
+        "structure": {
+          "enum": ["symmetric_lower", "symmetric_upper", "hermitian_lower", "hermitian_upper", "skew_symmetric_lower", "skew_symmetric_upper"]
+        }
+      },
+      "additionalProperties": false,
+      "required": ["data_types", "version", "format", "shape", "number_of_stored_values"],
+      "allOf": [
+        {
+          "if": { "properties": { "format": { "enum": ["DVEC", "CVEC"] } } },
+          "then": { "properties": { "shape": { "minItems": 1, "maxItems": 1 } } },
+          "else": { "properties": { "shape": { "minItems": 2, "maxItems": 2 } } }
+        },
+        {
+          "if": { "properties": { "format": { "enum": ["DVEC", "DMATR", "DMATC", "DMAT"] } } },
+          "then": { "properties": { "data_types": { "$ref": "#/$defs/dense_types" } } }
+        },
+        {
+          "if": { "properties": { "format": { "const": "CVEC" } } },
+          "then": { "properties": { "data_types": { "$ref": "#/$defs/cvec_types" } } }
+        },
+        {
+          "if": { "properties": { "format": { "enum": ["CSR", "CSC"] } } },
+          "then": { "properties": { "data_types": { "$ref": "#/$defs/compressed_types" } } }
+        },
+        {
+          "if": { "properties": { "format": { "enum": ["DCSR", "DCSC"] } } },
+          "then": { "properties": { "data_types": { "$ref": "#/$defs/doubly_compressed_types" } } }
+        },
+        {
+          "if": { "properties": { "format": { "enum": ["COOR", "COOC", "COO"] } } },
+          "then": { "properties": { "data_types": { "$ref": "#/$defs/coo_types" } } }
+        },
+        {
+          "if": { "properties": { "fill": { "const": true } }, "required": ["fill"] },
+          "then": { "properties": { "data_types": { "required": ["fill_value"] } } }
+        },
+        {
+          "if": { "required": ["structure"] },
+          "then": { "properties": { "format": { "not": { "enum": ["DVEC", "CVEC"] } } } }
+        },
+        {
+          "if": { "properties": { "structure": { "enum": ["hermitian_lower", "hermitian_upper"] } }, "required": ["structure"] },
+          "then": { "properties": { "data_types": { "properties": { "values": { "pattern": "complex\\[" } } } } }
+        }
+      ]
+    }
+  },
+  "required": ["binsparse"],
+  "$defs": {
+    "index_type": {
+      "enum": ["uint8", "uint16", "uint32", "uint64", "int8", "int16", "int32", "int64"]
+    },
+    "scalar_type": {
+      "type": "string",
+      "pattern": "^(uint(8|16|32|64)|int(8|16|32|64)|float(32|64)|bint8|complex\\[float(32|64)\\])$"
+    },
+    "value_type": {
+      "type": "string",
+      "pattern": "^(uint(8|16|32|64)|int(8|16|32|64)|float(32|64)|bint8|complex\\[float(32|64)\\])$|^iso\\[(uint(8|16|32|64)|int(8|16|32|64)|float(32|64)|bint8|complex\\[float(32|64)\\])\\]$"
+    },
+    "dense_types": {
+      "properties": {
+        "values": { "$ref": "#/$defs/value_type" },
+        "fill_value": { "$ref": "#/$defs/scalar_type" }
+      },
+      "required": ["values"],
+      "additionalProperties": false
+    },
+    "cvec_types": {
+      "properties": {
+        "indices_0": { "$ref": "#/$defs/index_type" },
+        "values": { "$ref": "#/$defs/value_type" },
+        "fill_value": { "$ref": "#/$defs/scalar_type" }
+      },
+      "required": ["indices_0", "values"],
+      "additionalProperties": false
+    },
+    "compressed_types": {
+      "properties": {
+        "pointers_to_1": { "$ref": "#/$defs/index_type" },
+        "indices_1": { "$ref": "#/$defs/index_type" },
+        "values": { "$ref": "#/$defs/value_type" },
+        "fill_value": { "$ref": "#/$defs/scalar_type" }
+      },
+      "required": ["pointers_to_1", "indices_1", "values"],
+      "additionalProperties": false
+    },
+    "doubly_compressed_types": {
+      "properties": {
+        "indices_0": { "$ref": "#/$defs/index_type" },
+        "pointers_to_1": { "$ref": "#/$defs/index_type" },
+        "indices_1": { "$ref": "#/$defs/index_type" },
+        "values": { "$ref": "#/$defs/value_type" },
+        "fill_value": { "$ref": "#/$defs/scalar_type" }
+      },
+      "required": ["indices_0", "pointers_to_1", "indices_1", "values"],
+      "additionalProperties": false
+    },
+    "coo_types": {
+      "properties": {
+        "indices_0": { "$ref": "#/$defs/index_type" },
+        "indices_1": { "$ref": "#/$defs/index_type" },
+        "values": { "$ref": "#/$defs/value_type" },
+        "fill_value": { "$ref": "#/$defs/scalar_type" }
+      },
+      "required": ["indices_0", "indices_1", "values"],
+      "additionalProperties": false
+    }
+  }
+}
